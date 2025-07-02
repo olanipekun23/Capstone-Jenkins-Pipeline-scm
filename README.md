@@ -46,20 +46,48 @@ Configure Jenkins server for CI/CD pipeline automation.
    sudo sh -c 'echo deb https://pkg.jenkins.io/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
    sudo apt update
    sudo apt install jenkins
+
    ```
+
+   ![proj dir](image-1.png)
+
+   ![update](image-2.png)
+
+   ![openjdk](image-3.png)
+
+   ![config](image-5.png)
+
 2. Start Jenkins:
 
    ```bash
    sudo systemctl start jenkins
    sudo systemctl enable jenkins
    ```
+![start](image-6.png)
+
+![enabled](image-7.png)
+
 3. Access Jenkins at `http://localhost:8080` or via `ngrok` (e.g. `ngrok http 8080`)
+
+
 4. Retrieve the initial admin password:
 
    ```bash
    sudo cat /var/lib/jenkins/secrets/initialAdminPassword
    ```
+![unlock](image-8.png)
+
 5. Install the suggested plugins and set up your admin user.
+
+![plugins](image-9.png)
+
+![plugins](image-10.png)
+
+![admin](image-11.png)
+
+![ready](image-12.png)
+
+![jenkins](image-13.png)
 
 ### Security Measures:
 
@@ -78,10 +106,24 @@ Connect Jenkins to GitHub for source code management.
 ### Steps:
 
 1. Install **Git** and **GitHub Integration Plugin** in Jenkins.
+
+![plugin](image-14.png)
+
+![plugins](image-15.png)
+
+![download](image-16.png)
+
+
 2. Add your GitHub repository credentials:
 
    * `Manage Jenkins > Credentials > Global > Add Credentials`
    * Use Personal Access Token (PAT) from GitHub
+
+   ![config](image-17.png)
+
+   ![source code](image-18.png)
+
+
 3. Configure webhook in your GitHub repo:
 
    * Go to **Settings > Webhooks**
@@ -89,12 +131,20 @@ Connect Jenkins to GitHub for source code management.
    * Content type: `application/json`
    * Enable: `Push events`
 
+![webhook](image-19.png)
+
+![payload](image-20.png)
+
+
 ### Jenkins Configuration:
 
 * In your Jenkins job, use the Git URL of your repository.
 * Select `GitHub hook trigger for GITScm polling`
 
 ---
+
+![trigger](image-21.png)
+
 
 ## PROJECT COMPONENT 3: Jenkins Freestyle Job for Build and Unit Tests
 
@@ -105,13 +155,22 @@ Create a Jenkins Freestyle job to build a web app and run unit tests.
 ### Steps:
 
 1. Create a Freestyle Job: `New Item > Freestyle Project`
+
+![freestyle](image-22.png)
+
+
 2. Under Source Code Management:
 
    * Select Git
    * Enter your GitHub repo URL and credentials
+
+![general config](image-23.png)
+
 3. Build Trigger:
 
    * Enable GitHub hook trigger
+
+   ![triger](image-24.png)
 4. Build Step:
 
    * Add `Execute Shell`
@@ -122,6 +181,8 @@ Create a Jenkins Freestyle job to build a web app and run unit tests.
      docker build -t mywebapp .
      docker run --rm mywebapp
      ```
+
+     ![build](image-25.png)
 5. Save and build
 
 ---
@@ -162,6 +223,25 @@ pipeline {
 }
 ```
 
+- Pipeline Capstone Project 
+
+![pipeline](image-26.png)
+
+![config](image-27.png)
+
+![trigger](image-28.png)
+
+![script](image-29.png)
+
+![syntax](image-30.png)
+
+![syntax config](image-31.png)
+
+![generate script](image-32.png)
+
+![pipeline script](image-33.png)
+
+
 ---
 
 ## PROJECT COMPONENT 5: Docker Image Creation and Registry Push
@@ -191,6 +271,26 @@ stage('Push to DockerHub') {
 }
 ```
 
+![docker.sh](image-34.png)
+
+![installin](image-35.png)
+
+![running](image-36.png)
+
+![dockerfile](image-37.png)
+
+![index.html](image-38.png)
+
+![permission](image-39.png)
+
+![credentials](image-40.png)
+
+![pipeline build](image-41.png)
+
+![container](image-42.png)
+
+![ecommerce](image-43.png)
+
 ---
 
 ## Final Notes
@@ -210,6 +310,8 @@ stage('Push to DockerHub') {
   ```
 * Use webhook trigger to start the pipeline automatically on GitHub push
 * Access deployed web app at `http://localhost:8081` or via `ngrok http 8081`
+
+
 
 ---
 
